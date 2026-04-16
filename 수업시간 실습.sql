@@ -54,5 +54,22 @@ select e.empno, e.ename, d.deptno, d.dname from emp e natural join dept d order 
 
 select e.empno, e.ename, e.sal, d.dname from emp e natural join dept d where e.sal > 2000 order by e.sal DESC;
 
+-- 서브쿼리   
+-- ex1.  emp테이블에서 사원번호가 7521 의 업무와 동일하고 급여가 7934보다 많은 사원의 정보(사원번호,이름,job,hiredate,sal)출력?
+select empno, ename, job, hiredate, sal from emp where job = (select job from emp where empno = 7521) and sal > (select sal from emp where empno = '7934'); 
+
+-- ex2.  emp테이블에서 급여의 평균보다 적은 급여를 받는 사원 정보 출력(사원번호,이름,job,hiredate,sal)?
+select empno, ename, job, hiredate, sal from emp where sal < (select avg(sal) from emp); 
+
+-- ex3.  emp테이블에서 20번 부서의 최소급여보다 많은 모든 부서를 출력? (부서명, 최소급여) 
+select  deptno, min(sal) from emp  group by deptno having min(sal) > (select min(sal) from emp where deptno=20);
+
+-- ex4. emp 테이블에서 업무별로 최소급여를 받는 사원정보 출력(사원번호, 이름, job, hiredate, sal)
+-- 업무별 최소급여 (800, 1250,2450,3000,5000)
+select empno, ename, job, hiredate, sal from emp where sal IN (select min(sal) from emp group by job);
+
+
+
+
 
 
