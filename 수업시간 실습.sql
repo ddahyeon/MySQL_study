@@ -38,4 +38,21 @@ from emp natural join dept;
 select empno, ename, sal, dname, deptno
 from emp natural join dept;
 
+select e.empno, e.ename, e.sal, d.dname, d.deptno from emp e natural join dept d;
+
+select * from emp join dept on emp.deptno = dept.deptno;
+
+select ename, sal, dname, loc from emp join dept on emp.deptno = dept.deptno;
+
+-- outer 조인
+use testdb;
+
+select * from emp RIGHT OUTER JOIN dept using (deptno);
+
+-- 실습문제 풀이 (p.100)
+select e.empno, e.ename, d.deptno, d.dname from emp e natural join dept d order by ename ASC;
+
+select e.empno, e.ename, e.sal, d.dname from emp e natural join dept d where e.sal > 2000 order by e.sal DESC;
+
+
 
