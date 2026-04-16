@@ -64,9 +64,22 @@ select empno, ename, job, hiredate, sal from emp where sal < (select avg(sal) fr
 -- ex3.  emp테이블에서 20번 부서의 최소급여보다 많은 모든 부서를 출력? (부서명, 최소급여) 
 select  deptno, min(sal) from emp  group by deptno having min(sal) > (select min(sal) from emp where deptno=20);
 
+-- 단일행, 복수행 연산자 실습 
 -- ex4. emp 테이블에서 업무별로 최소급여를 받는 사원정보 출력(사원번호, 이름, job, hiredate, sal)
 -- 업무별 최소급여 (800, 1250,2450,3000,5000)
 select empno, ename, job, hiredate, sal from emp where sal IN (select min(sal) from emp group by job);
+
+-- ex5. emp 테이블에서 job이 MANAGER인 사원의 최소급여보다 적은 급여를 받는 사원 정보(사원번호, 이름, job, hiredate, sal)   
+select empno, ename, job, hiredate, sal from emp WHERE sal < (SELECT MIN(sal) fROM emp WHERE job = 'MANAGER');
+
+-- ex6. emp 테이블에서 job이 MANAGER인 사원의 최소급여보다 많은 급여를 받는 사원 정보(사원번호, 이름, job, hiredate, sal)  
+select empno, ename, job, hiredate, sal from emp WHERE sal > (SELECT MIN(sal) fROM emp WHERE job = 'MANAGER');
+
+-- ex7. emp 테이블에서 job이 MANAGER인 사원의 최대급여보다 적은 급여를 받는 사원 정보(사원번호, 이름, job, hiredate, sal)  
+select empno, ename, job, hiredate, sal from emp WHERE sal < (SELECT max(sal) fROM emp WHERE job = 'MANAGER');
+
+-- ex8. emp 테이블에서 job이 MANAGER인 사원의 최대급여보다 많은 급여를 받는 사원 정보(사원번호, 이름, job, hiredate, sal)  
+select empno, ename, job, hiredate, sal from emp WHERE sal > (SELECT max(sal) fROM emp WHERE job = 'MANAGER');
 
 
 
