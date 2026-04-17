@@ -81,6 +81,15 @@ select empno, ename, job, hiredate, sal from emp WHERE sal < (SELECT max(sal) fR
 -- ex8. emp 테이블에서 job이 MANAGER인 사원의 최대급여보다 많은 급여를 받는 사원 정보(사원번호, 이름, job, hiredate, sal)  
 select empno, ename, job, hiredate, sal from emp WHERE sal > (SELECT max(sal) fROM emp WHERE job = 'MANAGER');
 
+-- DML
+insert into dept(deptno, dname) values (42,'인사과');
+
+insert into dept(deptno, dname, loc) values (43,'인사과',null);
+
+insert into dept values (44,'인사과',null);
+
+commit;
+
 
 
 
