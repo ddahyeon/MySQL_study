@@ -82,13 +82,23 @@ select empno, ename, job, hiredate, sal from emp WHERE sal < (SELECT max(sal) fR
 select empno, ename, job, hiredate, sal from emp WHERE sal > (SELECT max(sal) fROM emp WHERE job = 'MANAGER');
 
 -- DML
-insert into dept(deptno, dname) values (42,'인사과');
+-- insert into dept(deptno, dname) values (42,'인사과');
 
-insert into dept(deptno, dname, loc) values (43,'인사과',null);
+-- insert into dept(deptno, dname, loc) values (43,'인사과',null);
 
-insert into dept values (44,'인사과',null);
+-- insert into dept values (44,'인사과',null);
 
 commit;
+
+select * from my_emp;
+create table my_emp as select empno, ename, sal from emp where 1=2;
+insert into my_emp (empno, ename, sal) select empno, ename, sal from emp;
+
+insert into my_emp(empno,ename,sal) values (10,'홍길동1',500), (20,'홍길동2',500), (30,'홍길동3',500);
+
+commit;
+
+
 
 
 
