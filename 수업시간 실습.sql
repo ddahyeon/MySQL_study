@@ -98,10 +98,121 @@ insert into my_emp(empno,ename,sal) values (10,'홍길동1',500), (20,'홍길동
 
 commit;
 
+update my_emp
+set ename='이순신', sal=100;
+
+rollback;
+
+-- DDL 
+Create table IF NOT EXISTS board
+( Num int PRIMARY KEY AUTO_INCREMENT,
+title varchar(100) NOT NULL,
+Author varchar(10) NOT NULL,
+Content varchar(500) NOT NULL,
+writeday datetime DEFAULT now(),
+readcnt int DEFAULT 0  );
+
+insert into board (title, author, content) values ('테스트','홍길동','내용무');
+select * from board;
+
+Create table IF NOT EXISTS board2
+( Num int PRIMARY KEY AUTO_INCREMENT,
+title varchar(100) NOT NULL,
+Author varchar(10) NOT NULL,
+Content varchar(500) NOT NULL,
+writeday datetime DEFAULT now(),
+gender char(4) CONSTRAINT CHECK(gender in ('M','F')),
+readcnt int DEFAULT 0  );
+
+insert into board2 (title, author, content,gender) values ('테스트','홍길동','내용무','M');
+insert into board2 (title, author, content,gender) values ('테스트','홍길동','내용무','F');
+select * from board2;
+
+Create table IF NOT EXISTS board3
+	( Num int AUTO_INCREMENT,
+	title varchar(100) NOT NULL,
+	Author varchar(10),
+	Content varchar(500) NOT NULL,
+	writeday datetime DEFAULT now(),
+	gender char(4),
+	readcnt int DEFAULT 0,
+	CONSTRAINT PRIMARY KEY(num),
+	CONSTRAINT CHECK (gender in ('M','F')),
+	CONSTRAINT UNIQUE(author) );
+
+insert into board3 (title, author, content,gender) values ('테스트','홍길동','내용무','F');
+select * from board3;
+
+create table IF NOT EXISTS board4
+		   (
+		       num int,
+		       title varchar(100),
+		       author varchar(10),
+		       content varchar(500),
+		       writeday datetime DEFAULT now(),
+		       gender char(4),
+		       readcnt int DEFAULT 0
+		    );
+
+alter table board4
+add constraint check(gender in ('M','F'));
+
+create table master1
+   ( no int PRIMARY KEY,
+     name varchar(10) NOT NULL);
+
+   insert into master1 ( no, name ) values (1, 'aa1' );
+   insert into master1 ( no, name ) values (2, 'aa2' );
+   insert into master1 ( no, name ) values (3, 'aa3' );
+   commit;
+   
+    create table slave1
+   (  num int PRIMARY KEY,
+      ename VARCHAR(10) NOT NULL,
+      no int,
+      
+      CONSTRAINT FOREIGN KEY(no) REFERENCES master1(no) ON DELETE CASCADE
+   );
+   
+   insert into slave1 (num, ename, no ) values ( 10, 'slave1', 1 );
+   insert into slave1 (num, ename, no ) values ( 20, 'slave2', 2 );
+   insert into slave1 (num, ename, no ) values ( 30, 'slave3', 3 );   
+   insert into slave1 (num, ename, no ) values ( 40, 'slave4', 4 ); // 에러발생
+   insert into slave1 (num, ename, no ) values ( 50, 'slave5', null );
+   commit;
+   
+    create table slave2
+   (  num int PRIMARY KEY,
+      ename VARCHAR(10) NOT NULL,
+      no int 
+   
+   );
+   
+   create table master2
+   ( no int PRIMARY KEY,
+     name varchar(10) NOT NULL);
+
+   insert into master2 ( no, name ) values (1, 'aa1' );
+   insert into master2 ( no, name ) values (2, 'aa2' );
+   insert into master2 ( no, name ) values (3, 'aa3' );
+   commit;
 
 
+   create table slave2
+   (  num int PRIMARY KEY,
+      ename VARCHAR(10) NOT NULL,
+      no int,
 
-
-
-
+       CONSTRAINT FOREIGN KEY(no) REFERENCES master2(no) ON DELETE SET NULL
+   
+   );
+   
+   insert into slave2 (num, ename, no ) values ( 10, 'slave1', 1 );
+   insert into slave2 (num, ename, no ) values ( 20, 'slave2', 2 );
+   insert into slave2 (num, ename, no ) values ( 30, 'slave3', 3 );   
+   insert into slave2 (num, ename, no ) values ( 50, 'slave5', null );
+   commit;
+   
+   select * from master2;
+   select * from slave2;
 
