@@ -215,4 +215,33 @@ create table master1
    
    select * from master2;
    select * from slave2;
+   
+   delete from master2 where no =1;
+   
+   -- 테이블 삭제(DDL 떄문에 rollback 불가) 
+drop table if exists board;
+drop table if exists board2, board3;
+   
+   create table if not exists my_dept
+       ( no int primary key,
+         name varchar(10)  
+       );
+       
+          alter table my_dept
+       add column address varchar(20);
+       
+ alter table my_dept
+       modify address varchar(50);
+       
+alter table my_dept
+modify address varchar(10);
+
+  alter table my_dept
+RENAME COLUMN address TO addr;  
+
+alter table my_dept
+drop name; 
+
+
+
 
